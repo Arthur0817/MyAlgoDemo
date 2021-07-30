@@ -1,0 +1,5 @@
+﻿  main.cpp
+f:\workspace\test\myalgo\myalgo\binary_tree.h(378): warning C4267: “初始化”: 从“size_t”转换到“int32_t”，可能丢失数据
+f:\workspace\test\myalgo\myalgo\binary_tree.h(414): warning C4715: “BinaryTree::Invert”: 不是所有的控件路径都返回值
+  MyAlgo.vcxproj -> F:\workspace\test\MyAlgo\x64\Debug\MyAlgo.exe
+  MyAlgo.vcxproj -> F:\workspace\test\MyAlgo\x64\Debug\MyAlgo.pdb (Partial PDB)
