@@ -308,8 +308,8 @@ public:
                             while (!stack.empty() && !stack_base.empty())
                             {
                                 vec.push_back(stack_base.top()->node->data);
-                                if ((stack.top()->node->left && stack.top()->node->left->data == stack_base.top()->node->data) 
-                                    || (stack.top()->node->right && stack.top()->node->right->data == stack_base.top()->node->data))
+                                if ((stack.top()->node->left && stack.top()->node->left == stack_base.top()->node) 
+                                    || (stack.top()->node->right && stack.top()->node->right == stack_base.top()->node))
                                 {
                                     stack_base.pop();
                                     break;
@@ -422,6 +422,8 @@ public:
         {
             Invert(snode->right);
         }
+
+        return 0;
 
     }
 
