@@ -125,6 +125,8 @@ int main()
         ord_algo.QuickSort();
 
         ord_algo.QuickSort_Regular();
+
+        ord_algo.MaxHeapSort();
     }
 
     system("pause");

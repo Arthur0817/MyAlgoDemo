@@ -42,6 +42,22 @@ public:
         show_arr("quick   :");
     }
 
+    void MaxHeapSort()
+    {
+        init_arr();
+        show_arr("original:");
+        make_max_binary_heap(ARR_NUM);
+        //show_arr("heap    :");
+        for (int i = ARR_NUM - 1; i > 0; --i)
+        {
+            uint64_t tmp = g_origin_arr[0];
+            g_origin_arr[0] = g_origin_arr[i];
+            g_origin_arr[i] = tmp;
+            max_adjust(0, i);
+        }
+        show_arr("heapsort:");
+    }
+
 protected:
     void init_arr()
     {
@@ -55,7 +71,7 @@ protected:
         g_origin_arr[7] = 36;
         g_origin_arr[8] = 10;
         g_origin_arr[9] = 11;
-        g_origin_arr[10] = 1;
+        g_origin_arr[10] = 10;
         g_origin_arr[11] = 39;
     }
 
@@ -186,6 +202,53 @@ protected:
             {
                 stack_pos.push(std::pair<int, int>(base_idx + 1, pos.second));
             }
+        }
+    }
+
+    void max_adjust(int idx, int length)
+    {
+        int idx_root = idx;
+        while (idx_root < length)
+        {
+            uint64_t root_data = g_origin_arr[idx_root];
+            int idx_left = 2 * idx_root + 1, idx_right = 2 * idx_root + 2;
+            if (idx_left >= length)//完全二叉树，没有左子节点就肯定没有右子节点，跳出
+            {
+                break;
+            }
+
+            uint64_t son_greater_idx = idx_left;
+
+            if (idx_right < length && g_origin_arr[idx_right] > g_origin_arr[idx_left])
+            {
+                son_greater_idx = idx_right;
+            }
+
+            if (root_data > g_origin_arr[son_greater_idx])
+            {
+                break;
+            }
+            else
+            {
+                g_origin_arr[idx_root] = g_origin_arr[son_greater_idx];
+                g_origin_arr[son_greater_idx] = root_data;
+                idx_root = son_greater_idx;
+            }
+        }
+    }
+    void make_max_binary_heap(int length)
+    {
+        //二叉堆是完全二叉树，是线性数组存储
+        //左节点索引 = 2 * 父节点索引 + 1
+        //右节点索引 = 2 * 父节点索引 + 2
+        //如果数组长度是奇数(不包括1)，则最后一个节点是右节点，反之则是左节点
+        //最后一个父节点索引 = 数组长度是奇数 ？ (数组长度 - 1 - 2)/2 : (数组长度 - 1 - 1)/2
+        int final_parent_idx = length % 2 == 0 ? (length - 1 - 1) / 2 : (length - 1 - 2) / 2;
+
+        for (int i = final_parent_idx; i >= 0; --i)
+        {
+            //调整节点位置，满足最大堆要求
+            max_adjust(i, length);
         }
     }
 protected:
